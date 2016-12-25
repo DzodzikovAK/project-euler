@@ -6,3 +6,22 @@
  * By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
  */
 
+def sumEvenFibonacciNotGreaterThan = { max ->
+    def sum = { first, second, result ->
+        if (second % 2 == 0) {
+            result += second
+        }
+
+        def nextNumber = first + second
+
+        if (nextNumber > max) {
+            result
+        } else {
+            call second, nextNumber, result
+        }
+    }.trampoline()
+
+    sum.trampoline(1, 2, 0)()
+}
+
+println sumEvenFibonacciNotGreaterThan(4000000)

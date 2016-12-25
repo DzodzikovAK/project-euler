@@ -4,4 +4,10 @@
  * Find the sum of all the multiples of 3 or 5 below 1000.
  */
 
+def sumMultiples = { max ->
+    (0..max).findAll { it % 3 == 0 || it % 5 == 0 }
+            .sum()
+}
 
+// test
+println sumMultiples(999)

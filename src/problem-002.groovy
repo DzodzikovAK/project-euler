@@ -7,21 +7,20 @@
  */
 
 def sumEvenFibonacciNotGreaterThan = { max ->
+    def addIfEven = { init, toAdd ->
+        toAdd % 2 == 0 ? init + toAdd : init
+    }
+
     def sum = { first, second, result ->
-        if (second % 2 == 0) {
-            result += second
-        }
-
-        def nextNumber = first + second
-
-        if (nextNumber > max) {
+        if (second > max) {
             result
         } else {
-            call second, nextNumber, result
+            call second, first + second, addIfEven(result, second)
         }
     }.trampoline()
 
     sum.trampoline(1, 2, 0)()
 }
 
+// test
 println sumEvenFibonacciNotGreaterThan(4000000)
